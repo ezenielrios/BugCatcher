@@ -16,15 +16,14 @@ import static org.junit.Assert.assertEquals;
 public class LoginFeature {
     String browserName = "chrome";
     WebDriver driver = null;
-    LoginPage LoginPage ;
+    LoginPage LoginPage;
 
     @Given("The employee is on the login page")
     public void the_employee_is_on_the_login_page() {
-        if(browserName.equals("edge")) {
+        if (browserName.equals("edge")) {
             WebDriverManager.edgedriver().setup();
             driver = new EdgeDriver();
-        }
-        else if(browserName.equals("chrome")) {
+        } else if (browserName.equals("chrome")) {
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
         }
@@ -37,15 +36,15 @@ public class LoginFeature {
 
 
     @When("The employee types {string} into username input")
-    public void the_employee_types_username_into_username_input(String username){
+    public void the_employee_types_username_into_username_input(String username) {
         LoginPage.enterUsername(username);
-        System.out.println("Username entered is :"+username);
+        System.out.println("Username entered is :" + username);
     }
 
     @When("The employee types {string} into password input")
     public void the_employee_types_password_into_password_input(String password) {
         LoginPage.enterPassword(password);
-        System.out.println("Password entered is :"+password);
+        System.out.println("Password entered is :" + password);
 
     }
 
@@ -56,20 +55,19 @@ public class LoginFeature {
     }
 
 
-
     @Then("the employee should be on the {string} page")
     public void the_employee_should_be_on_the_page(String role) {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         String actualURL = driver.getCurrentUrl();
         String expectedURL = "https://bugcatcher-primer.coe.revaturelabs.com/?dev=11";
         assertEquals(expectedURL, actualURL);
-        System.out.println("Role is :"+role);
+        System.out.println("Role is :" + role);
 
     }
 
     @Then("The employee should see their name {string} {string} on the home page")
-    public void the_employee_should_see_their_name_fname_lname_on_the_home_page(String fname,String lname) {
-        System.out.println("FName and lname is "+fname+"  "+lname);
+    public void the_employee_should_see_their_name_fname_lname_on_the_home_page(String fname, String lname) {
+        System.out.println("FName and lname is " + fname + "  " + lname);
     }
 
 
@@ -80,20 +78,30 @@ public class LoginFeature {
     }
 
     @Then("The employee should see an alert saying they have the wrong password")
-    public boolean isAlertPresent(){
-            try
-            {
-                driver.switchTo().alert();
-                return true;
+    public boolean isPasswordAlertPresent() {
+        try {
+            driver.switchTo().alert();
+            return true;
 
-            }   // try
-            catch (NoAlertPresentException Ex)
-            {
-                return false;
-            }   // catch
-        }
+        }   // try
+        catch (NoAlertPresentException Ex) {
+            return false;
+        }   // catch
+    }
 
 
+    @Then("The employee should see an alert saying no user with that username found")
+    public boolean isUserNameAlertPresent() {
+        try {
+            driver.switchTo().alert();
+            return true;
+
+        }   // try
+        catch (NoAlertPresentException Ex) {
+            return false;
+        }   // catch
+
+    }
 }
 
 
