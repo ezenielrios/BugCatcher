@@ -8,7 +8,6 @@ import org.openqa.selenium.edge.EdgeDriver;
 
 import java.time.Duration;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.Assert.assertEquals;
 
 
@@ -54,10 +53,13 @@ public class LoginPositiveFeature {
         System.out.println("Successfully Logged in");
     }
 
+
+
     @Then("the employee should be on the {string} page")
     public void the_employee_should_be_on_the_page(String role) {
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         String actualURL = driver.getCurrentUrl();
-        String expectedURL = "https://bugcatcher-primer.coe.revaturelabs.com/testerhome";
+        String expectedURL = "https://bugcatcher-primer.coe.revaturelabs.com/?dev=11";
         assertEquals(expectedURL, actualURL);
         System.out.println("Role is :"+role);
 
@@ -66,7 +68,6 @@ public class LoginPositiveFeature {
     @Then("The employee should see their name {string} {string} on the home page")
     public void the_employee_should_see_their_name_fname_lname_on_the_home_page(String fname,String lname) {
         System.out.println("FName and lname is "+fname+"  "+lname);
-
     }
 
 
