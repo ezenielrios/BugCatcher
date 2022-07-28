@@ -2,10 +2,14 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 import java.time.Duration;
@@ -78,38 +82,35 @@ public class LoginFeature {
     }
 
     @Then("The employee should see an alert saying they have the wrong password")
-    public boolean isPasswordAlertPresent() {
-        try {
-            driver.switchTo().alert();
-            return true;
-
-        }   // try
-        catch (NoAlertPresentException Ex) {
-            return false;
-        }   // catch
+    public void isPasswordAlertPresent() {
+        WebDriverWait wait = new WebDriverWait(driver, 2);
+        wait.until(ExpectedConditions.alertIsPresent());
+        Alert confirmation = driver.switchTo().alert();
+        String alertText = confirmation.getText();
+        System.out.println(alertText);
     }
 
 
     @Then("The employee should see an alert saying no user with that username found")
-    public boolean isUserNameAlertPresent() {
-        try {
-            driver.switchTo().alert();
-            return true;
-
-        }   // try
-        catch (NoAlertPresentException Ex) {
-            return false;
-        }   // catch
-
+    public void isUserNameAlertPresent() {
+        WebDriverWait wait = new WebDriverWait(driver, 2);
+        wait.until(ExpectedConditions.alertIsPresent());
+        Alert confirmation = driver.switchTo().alert();
+        String alertText = confirmation.getText();
+        System.out.println(alertText);
     }
+
 }
 
 
-
-
-
-
-
+//        try {
+//            return true;
+//
+//        }   // try
+//        catch (NoAlertPresentException Ex) {
+//            return false;
+//        }   // catch
+//    }
 
 
 
